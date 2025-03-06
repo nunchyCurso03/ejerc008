@@ -19,10 +19,10 @@ public class Persona {
     @Column(nullable = false)
     private String nombre;
 
-    @JsonIgnore
+    //@JsonIgnore
     @ManyToOne
-    private Provincia provincia; 
- 
+    private Provincia provincia;
+
     public Persona() {
     }
 
@@ -55,6 +55,8 @@ public class Persona {
     public void setProvincia(Provincia provincia) {
         this.provincia = provincia;
     }
+
+
 
     @Override
     public int hashCode() {

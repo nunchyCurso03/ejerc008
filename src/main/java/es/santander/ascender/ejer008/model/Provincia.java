@@ -1,7 +1,13 @@
 package es.santander.ascender.ejer008.model;
 
+ 
+
+import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -19,12 +25,12 @@ public class Provincia {
     @Column(nullable = false)
     private String nombre;
 
-    @Column (length = 2, nullable = false)
+    @Column (length = 2, nullable = false)     
     private String codigo;
 
-     @OneToMany(mappedBy = "provincia")
-    private List<Persona> personas;
-
+    @JsonIgnore
+    @OneToMany(mappedBy = "provincia", cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE })
+    private List<Persona> persona = new ArrayList<>();
 
    
 
@@ -33,11 +39,11 @@ public class Provincia {
 
     
 
-    public Provincia(Long id, String nombre, String codigo, List<Persona> personas) {
+    public Provincia(Long id, String nombre, String codigo ) {
         this.id = id;
         this.nombre = nombre;
         this.codigo = codigo;
-        this.personas = personas;
+        
     }
 
 
@@ -66,14 +72,16 @@ public class Provincia {
         this.codigo = codigo;
     }
 
-
-    public List<Persona> getPersonas() {
-        return personas;
+    public List<Persona> getPersona() {
+        return persona;
     }
 
-    public void setPersonas(List<Persona> personas) {
-        this.personas = personas;
+    public void setPersona(List<Persona> persona) {
+        this.persona = persona;
     }
+
+
+   
     @Override
     public int hashCode() {
         final int prime = 31;
