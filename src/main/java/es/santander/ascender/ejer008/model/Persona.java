@@ -8,6 +8,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Pattern;
 
 @Entity
 public class Persona {
@@ -19,6 +21,15 @@ public class Persona {
     @Column(nullable = false)
     private String nombre;
 
+    @Column(nullable = false)
+    private String apellidos;
+
+    @Email
+    private String email;
+
+    @Pattern(regexp = "^[0-9]{9}$")
+    private String telefono;
+
     //@JsonIgnore
     @ManyToOne
     private Provincia provincia;
@@ -26,10 +37,12 @@ public class Persona {
     public Persona() {
     }
 
-    public Persona(Long id, String nombre, Provincia provincia) {
+    public Persona(Long id, String nombre, String apellidos, String email, String telefono) {
         this.id = id;
         this.nombre = nombre;
-        this.provincia = provincia;
+        this.apellidos = apellidos;
+        this.email = email;
+        this.telefono = telefono;
     }
 
     public Long getId() {
@@ -48,15 +61,38 @@ public class Persona {
         this.nombre = nombre;
     }
 
+    public String getApellidos() {
+        return apellidos;
+    }
+
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
     public Provincia getProvincia() {
         return provincia;
     }
 
+
     public void setProvincia(Provincia provincia) {
         this.provincia = provincia;
     }
-
-
 
     @Override
     public int hashCode() {
@@ -65,6 +101,7 @@ public class Persona {
         result = prime * result + ((id == null) ? 0 : id.hashCode());
         return result;
     }
+
 
     @Override
     public boolean equals(Object obj) {
@@ -82,4 +119,9 @@ public class Persona {
             return false;
         return true;
     }
+
+
+
+
+
 }

@@ -19,7 +19,7 @@ import jakarta.persistence.OneToMany;
 public class Provincia {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(nullable = false)
@@ -28,9 +28,11 @@ public class Provincia {
     @Column (length = 2, nullable = false)     
     private String codigo;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "provincia", cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE })
-    private List<Persona> persona = new ArrayList<>();
+    private String descripcion;
+
+    //@JsonIgnore
+    //@OneToMany(mappedBy = "provincia", cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE })
+    //private List<Persona> persona = new ArrayList<>();
 
    
 
@@ -39,10 +41,11 @@ public class Provincia {
 
     
 
-    public Provincia(Long id, String nombre, String codigo ) {
+    public Provincia(Long id, String nombre, String codigo, String descripcion ) {
         this.id = id;
         this.nombre = nombre;
         this.codigo = codigo;
+        this.descripcion = descripcion;
         
     }
 
@@ -72,15 +75,31 @@ public class Provincia {
         this.codigo = codigo;
     }
 
-    public List<Persona> getPersona() {
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+   /*   public List<Persona> getPersona() {
         return persona;
-    }
+    }*/
 
-    public void setPersona(List<Persona> persona) {
+    /*public void setPersona(List<Persona> persona) {
         this.persona = persona;
+    }*/
+
+    @Override
+    public String toString() {
+        return "Provincia{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", codigo='" + codigo + '\'' +
+                ", descripcion='" + descripcion + '\'' +
+                '}';
     }
-
-
    
     @Override
     public int hashCode() {

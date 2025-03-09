@@ -1,13 +1,10 @@
 package es.santander.ascender.ejer008.service;
 
 import java.util.List;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
  
-import es.santander.ascender.ejer008.model.Persona;
 import es.santander.ascender.ejer008.model.Provincia;
 import es.santander.ascender.ejer008.repository.ProvinciaRepository;
 
@@ -17,7 +14,12 @@ public class ProvinciaService {
     @Autowired
     private ProvinciaRepository provinciaRepository;
 
+    @Transactional(readOnly = true)
+    public List<Provincia> getAllProvincias() {
+        return provinciaRepository.findAll();
+    }
 
+/*
     // Buscar provincias por ID
     public Optional<Provincia> getProvinciaById(Long id) {
         return provinciaRepository.findById(id);
@@ -61,6 +63,6 @@ public class ProvinciaService {
             return provinciaRepository.save(provincia);
         }
         return null;
-    }
+    }*/
  
 }
