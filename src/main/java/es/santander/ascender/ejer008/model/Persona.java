@@ -2,12 +2,14 @@ package es.santander.ascender.ejer008.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Pattern;
 
@@ -30,9 +32,12 @@ public class Persona {
     @Pattern(regexp = "^[0-9]{9}$")
     private String telefono;
 
-    //@JsonIgnore
     @ManyToOne
     private Provincia provincia;
+
+    @OneToOne(mappedBy = "persona", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private Usuario usuario;
 
     public Persona() {
     }
@@ -89,9 +94,16 @@ public class Persona {
         return provincia;
     }
 
-
     public void setProvincia(Provincia provincia) {
         this.provincia = provincia;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     @Override
@@ -101,7 +113,6 @@ public class Persona {
         result = prime * result + ((id == null) ? 0 : id.hashCode());
         return result;
     }
-
 
     @Override
     public boolean equals(Object obj) {
@@ -119,9 +130,5 @@ public class Persona {
             return false;
         return true;
     }
-
-
-
-
 
 }
